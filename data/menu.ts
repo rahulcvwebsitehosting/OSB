@@ -1,6 +1,19 @@
 import { MenuItem } from '../types';
 
 export const MENU_ITEMS: MenuItem[] = [
+  // --- TRENDING & SPECIAL ---
+  {
+    id: "cs1",
+    name: "Pani Puri (5 Pcs)",
+    description: "Crispy puris with spicy mint water. The most loved chat in West Mambalam!",
+    price: 20,
+    category: "Chaats & Snacks",
+    isVeg: true,
+    isBestseller: true,
+    isTrending: true,
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxMDZ89fmuKlbqzOdXvFvhLA89V4J_klI3Q&s"
+  },
+
   // --- Veg Main Course ---
   {
     id: "vm1",
@@ -1044,16 +1057,6 @@ export const MENU_ITEMS: MenuItem[] = [
   },
 
   // --- Chaats & Snacks ---
-  {
-    id: "cs1",
-    name: "Pani Puri (5 Pcs)",
-    description: "Crispy puris with spicy mint water.",
-    price: 20,
-    category: "Chaats & Snacks",
-    isVeg: true,
-    isBestseller: true,
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxMDZ89fmuKlbqzOdXvFvhLA89V4J_klI3Q&s"
-  },
   {
     id: "cs2",
     name: "Pav Bhaji",

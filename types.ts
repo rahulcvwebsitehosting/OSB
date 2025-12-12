@@ -6,6 +6,7 @@ export interface MenuItem {
   category: string;
   isVeg: boolean;
   isBestseller?: boolean;
+  isTrending?: boolean;
   isSpicy?: boolean;
   image?: string;
   outOfStock?: boolean;

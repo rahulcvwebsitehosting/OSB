@@ -5,7 +5,8 @@ import { SETTINGS, STATISTICS } from '../data/settings';
 import { MENU_ITEMS } from '../data/menu';
 
 const HomePage = () => {
-  const popularItems = MENU_ITEMS.filter(item => item.isBestseller).slice(0, 3);
+  // Ensure the trending item is first, followed by bestsellers
+  const popularItems = MENU_ITEMS.filter(item => item.isTrending || item.isBestseller).slice(0, 3);
   const whatsappUrl = `https://wa.me/${SETTINGS.whatsapp}?text=Hi! I'd like to place an order from OSB Hot & Chat`;
 
   return (
@@ -81,10 +82,22 @@ const HomePage = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {popularItems.map((item) => (
-              <div key={item.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div 
+                key={item.id} 
+                className={`bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 ${item.isTrending ? 'ring-2 ring-brand-red transform md:-translate-y-2' : ''}`}
+              >
                 <div className="h-48 overflow-hidden relative">
                    <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" />
-                   {item.isBestseller && (
+                   
+                   {/* Trending Badge */}
+                   {item.isTrending && (
+                      <span className="absolute top-3 right-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg animate-pulse z-10 flex items-center gap-1">
+                        🔥 TRENDING #1
+                      </span>
+                   )}
+
+                   {/* Bestseller Badge (show only if not trending to avoid clutter, or show secondary) */}
+                   {item.isBestseller && !item.isTrending && (
                      <span className="absolute top-3 left-3 bg-brand-yellow text-xs font-bold px-2 py-1 rounded shadow-sm text-brand-dark">
                        BESTSELLER
                      </span>
@@ -97,7 +110,7 @@ const HomePage = () => {
                   </div>
                   <p className="text-gray-500 text-sm mb-4 line-clamp-2">{item.description}</p>
                   <div className="flex gap-2">
-                     <a href={SETTINGS.swiggyLink} target="_blank" rel="noreferrer" className="flex-1 bg-brand-red text-white py-2 rounded text-sm font-bold text-center hover:bg-orange-700">
+                     <a href={SETTINGS.swiggyLink} target="_blank" rel="noreferrer" className={`flex-1 text-white py-2 rounded text-sm font-bold text-center transition-colors ${item.isTrending ? 'bg-red-600 hover:bg-red-700' : 'bg-brand-red hover:bg-orange-700'}`}>
                        Order Swiggy
                      </a>
                      <a href={whatsappUrl} target="_blank" rel="noreferrer" className="px-3 py-2 bg-green-100 text-green-700 rounded hover:bg-green-200">
