@@ -392,7 +392,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "Chinese",
     isVeg: true,
     isBestseller: true,
-    image: "https://picsum.photos/400/300?random=ch1"
+    image: "https://storage.googleapis.com/shy-pub/330116/73e3d5c58e927ae15a8c9f9aa981a116-1732909284210.jpeg"
   },
   {
     id: "ch2",
@@ -913,7 +913,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "South Indian",
     isVeg: true,
     isBestseller: true,
-    image: "https://picsum.photos/400/300?random=si6"
+    image: "https://c.ndtvimg.com/2021-05/tj7sdqj8_parotta_625x300_14_May_21.jpg?im=FeatureCrop,algorithm=dnn,width=384,height=384"
   },
   {
     id: "si7",
@@ -1052,7 +1052,7 @@ export const MENU_ITEMS: MenuItem[] = [
     category: "Chaats & Snacks",
     isVeg: true,
     isBestseller: true,
-    image: "https://picsum.photos/400/300?random=cs1"
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVxMDZ89fmuKlbqzOdXvFvhLA89V4J_klI3Q&s"
   },
   {
     id: "cs2",
