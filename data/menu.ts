@@ -1046,9 +1046,9 @@ export const MENU_ITEMS: MenuItem[] = [
   // --- Chaats & Snacks ---
   {
     id: "cs1",
-    name: "Pani Puri (10 Pcs)",
+    name: "Pani Puri (5 Pcs)",
     description: "Crispy puris with spicy mint water.",
-    price: 84.10,
+    price: 20,
     category: "Chaats & Snacks",
     isVeg: true,
     isBestseller: true,
