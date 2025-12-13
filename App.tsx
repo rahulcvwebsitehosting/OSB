@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, MapPin, ShoppingBag, MessageCircle, Linkedin, Facebook } from 'lucide-react';
+import { Menu, X, Phone, MapPin, ShoppingBag, MessageCircle, Linkedin, Facebook, Home } from 'lucide-react';
 import { SETTINGS } from './data/settings';
 import HomePage from './pages/HomePage';
 import MenuPage from './pages/MenuPage';
@@ -14,25 +14,44 @@ const MobileStickyBar = () => {
   const whatsappUrl = `https://wa.me/${SETTINGS.whatsapp}?text=Hi! I'd like to place an order from OSB Hot & Chat`;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 md:hidden pb-safe">
-      <div className="flex justify-around items-center h-16">
-        <a href={`tel:${SETTINGS.phone}`} className="flex flex-col items-center text-gray-600 hover:text-brand-red">
-          <Phone size={20} />
-          <span className="text-xs mt-1 font-medium">Call</span>
-        </a>
-        <a href={SETTINGS.mapsLink} target="_blank" rel="noreferrer" className="flex flex-col items-center text-gray-600 hover:text-brand-red">
-          <MapPin size={20} />
-          <span className="text-xs mt-1 font-medium">Map</span>
-        </a>
-        <Link to="/menu" className="flex flex-col items-center text-brand-red">
-          <div className="bg-brand-red text-white p-3 rounded-full -mt-6 shadow-lg border-4 border-white">
-            <ShoppingBag size={24} />
-          </div>
-          <span className="text-xs mt-1 font-bold text-brand-red">Menu</span>
+    <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 md:hidden pb-safe shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+      <div className="flex justify-between items-end h-16 px-4 pb-2 max-w-md mx-auto">
+        {/* Home */}
+        <Link to="/" className="flex flex-col items-center justify-end h-full text-gray-400 hover:text-brand-red transition-colors w-12 pb-1">
+          <Home size={20} strokeWidth={2} />
+          <span className="text-[10px] mt-1 font-medium">Home</span>
         </Link>
-        <a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex flex-col items-center text-gray-600 hover:text-green-600">
-          <MessageCircle size={20} />
-          <span className="text-xs mt-1 font-medium">WhatsApp</span>
+
+        {/* Map */}
+        <a href={SETTINGS.mapsLink} target="_blank" rel="noreferrer" className="flex flex-col items-center justify-end h-full text-gray-400 hover:text-brand-red transition-colors w-12 pb-1">
+          <MapPin size={20} strokeWidth={2} />
+          <span className="text-[10px] mt-1 font-medium">Map</span>
+        </a>
+
+        {/* Prominent Menu Button */}
+        <Link to="/menu" className="flex flex-col items-center justify-end h-full relative -top-6 w-14">
+          <div className="bg-brand-red text-white p-3.5 rounded-full shadow-xl border-4 border-brand-cream hover:scale-105 transition-transform flex items-center justify-center">
+            <ShoppingBag size={22} fill="currentColor" className="text-white" />
+          </div>
+          <span className="text-xs font-bold text-brand-red mt-1">Menu</span>
+        </Link>
+
+        {/* WhatsApp Order */}
+        <a href={whatsappUrl} target="_blank" rel="noreferrer" className="flex flex-col items-center justify-end h-full text-green-600 hover:text-green-700 transition-colors w-12 pb-1">
+          <div className="relative">
+             <MessageCircle size={20} strokeWidth={2} />
+             <span className="absolute -top-0.5 -right-0.5 flex h-2 w-2">
+               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+             </span>
+          </div>
+          <span className="text-[10px] mt-1 font-bold">Order</span>
+        </a>
+
+        {/* Call */}
+        <a href={`tel:${SETTINGS.phone}`} className="flex flex-col items-center justify-end h-full text-gray-400 hover:text-brand-red transition-colors w-12 pb-1">
+          <Phone size={20} strokeWidth={2} />
+          <span className="text-[10px] mt-1 font-medium">Call</span>
         </a>
       </div>
     </div>
