@@ -1877,7 +1877,17 @@ const wiki: Record<string, string> = {
   navratanKorma: W("e/e2/Navratan_Korma_%28Mughal_Kitchen%29.JPG"),
   chanaMasala: W("8/8e/Chana_masala.jpg"),
   paratha: W("1/1e/Triangle_paratha_%28cropped%29.JPG"),
-  dal: W("f/f5/3_types_of_lentil.png")
+  dal: W("f/f5/3_types_of_lentil.png"),
+  roti: W("5/58/Fresh_Roti-_Indian_flour_bread_06-02-2009_22-21-3.JPG"),
+  kothuParotta: W("0/00/Kothu_Parotta.jpg"),
+  mixedVegCurry: W("e/e4/Mixed_Vegetable_Curry.JPG"),
+  mixedVegCurry1: W("6/67/Mixed_vegetable_curry_1.jpg"),
+  mixedVegCurry2: W("b/b3/Mixed_vegetable_curry_2.jpg"),
+  alooMatar: W(
+    "a/ac/A_Bengali_curry_dish_made_from_Potato_and_fresh_matar_%28green_peas%29%2C_photographed_in_West_Bengal%2C_India%2C_November_19%2C_2023_%281%29.jpg"
+  ),
+  bhindi: W("7/71/Punjabi_bhindi_masala.jpg"),
+  gobiCurry: W("7/7a/Gobi_curry.jpg")
 };
 
 // Exact dish overrides (most accurate available image).
@@ -1887,7 +1897,7 @@ const EXACT: Record<string, string> = {
   "chana masala": wiki.chanaMasala,
   "mattar paneer": wiki.matarPaneer,
   "aloo gobi masala": wiki.alooGobi,
-  "aloo mattar masala": unsplash.dal,
+  "aloo mattar masala": wiki.alooMatar,
   "veg korma": wiki.navratanKorma,
   "dal fry": wiki.dal,
   "pav bhaji": wiki.pavBhaji,
@@ -1998,7 +2008,7 @@ const getRealImage = (name: string, category: string): string => {
     return unsplash.idli;
   }
   if (n.includes("kothu parotta") || n.includes("chilli parotta")) {
-    return unsplash.poori;
+    return wiki.kothuParotta;
   }
   if (
     n.includes("poori") ||
@@ -2013,7 +2023,7 @@ const getRealImage = (name: string, category: string): string => {
     return wiki.paratha;
   }
   if (n.includes("kulcha") || n.includes("roti") || n.includes("chapati") || n.includes("phulka")) {
-    return unsplash.poori;
+    return wiki.roti;
   }
   if (
     n.includes("pani puri") ||
@@ -2060,10 +2070,17 @@ const getRealImage = (name: string, category: string): string => {
 
   // 3. Category fallbacks.
   if (c.includes("grav")) {
-    return unsplash.dal;
+    // Dish-accurate veg curry images instead of a single lentils photo.
+    if (n.includes("bhindi")) return wiki.bhindi;
+    if (n.includes("gobi") || n.includes("cauliflower")) return wiki.gobiCurry;
+    if (n.includes("aloo") && n.includes("mattar")) return wiki.alooMatar;
+    const pool = [wiki.mixedVegCurry, wiki.mixedVegCurry1, wiki.mixedVegCurry2];
+    let h = 0;
+    for (const ch of n) h = (h + ch.charCodeAt(0)) % pool.length;
+    return pool[h];
   }
   if (c.includes("bread") || c.includes("roti") || c.includes("naan")) {
-    return unsplash.poori;
+    return wiki.roti;
   }
   if (c.includes("chinese")) {
     return unsplash.asian;
