@@ -1,6 +1,6 @@
 import { MenuItem } from '../types';
 
-export const MENU_ITEMS: MenuItem[] = [
+const RAW_MENU_ITEMS: MenuItem[] = [
   // --- TRENDING & SPECIAL ---
   {
     id: "cs1",
@@ -1689,7 +1689,7 @@ export const MENU_ITEMS: MenuItem[] = [
 
   // --- Sweets ---
   {
-    id: "sw1",
+    id: "swt1",
     name: "Gulab Jamun (2 Pcs)",
     description: "Fried dough balls in syrup.",
     price: 80,
@@ -1698,7 +1698,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: "https://picsum.photos/400/300?random=sw1"
   },
   {
-    id: "sw2",
+    id: "swt2",
     name: "BASUNDHI",
     description: "Sweet thickened milk.",
     price: 90,
@@ -1707,7 +1707,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: "https://picsum.photos/400/300?random=sw2"
   },
   {
-    id: "sw3",
+    id: "swt3",
     name: "RASMALAI",
     description: "Cottage cheese in sweet milk.",
     price: 80,
@@ -1716,7 +1716,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: "https://picsum.photos/400/300?random=sw3"
   },
   {
-    id: "sw4",
+    id: "swt4",
     name: "Kaala Jamun (2 Pcs)",
     description: "Dark fried dough balls.",
     price: 90,
@@ -1725,7 +1725,7 @@ export const MENU_ITEMS: MenuItem[] = [
     image: "https://picsum.photos/400/300?random=sw4"
   },
   {
-    id: "sw5",
+    id: "swt5",
     name: "Shahi Tukuda",
     description: "Fried bread dessert.",
     price: 83,
@@ -1810,6 +1810,293 @@ export const MENU_ITEMS: MenuItem[] = [
     image: "https://picsum.photos/400/300?random=ex5"
   },
 ];
+
+// --- Accurate, verified food photography sources ---
+// Unsplash photo IDs (professional, no watermark, stable CDN).
+const U = (id: string) =>
+  `https://images.unsplash.com/photo-${id}?w=600&auto=format&fit=crop&q=80`;
+
+// Wikimedia Commons original images (real, dish-accurate photos).
+const W = (file: string) =>
+  `https://upload.wikimedia.org/wikipedia/commons/${file}`;
+
+const unsplash: Record<string, string> = {
+  paneer: U("1631452180519-c014fe946bc7"), // paneer curry
+  pavbhaji: U("1606491956689-2ea866880c84"), // pav bhaji
+  thali: U("1610192244261-3f33de3f55e4"), // indian thali / meal platter
+  poori: U("1627308595229-7830a5c91f9f"), // poori / flatbread
+  biryani: U("1563379091339-03b21ab4a4f8"), // biryani
+  dosa: U("1668236543090-82eba5ee5976"), // dosa
+  idli: U("1589301760014-d929f3979dbc"), // idli / vada
+  friedrice: U("1603133872878-684f208fb84b"), // fried rice
+  noodles: U("1585032226651-759b368d7246"), // noodles
+  dal: U("1546833999-b9f581a1996d"), // dal / lentil curry
+  chaat: U("1626132647523-66f5bf380027"), // chaat / snacks
+  palak: U("1512621776951-a57141f2eefd"), // green spinach curry
+  tandoori: U("1565557623262-b51c2513a641"), // tandoori / grilled
+  manchurian: U("1512058564366-18510be2db19"), // dry chinese starter
+  asian: U("1541613569553-332a2574a508"), // asian / chinese plate
+  plainrice: U("1511690743698-d9d85f2fbf38"), // plain rice
+  sandwich: U("1528735602780-2552fd46c7af"), // sandwich / toast
+  juice: U("1513558161293-cdaf765ed2fd"), // juice / cold drink
+  lassi: U("1585238342024-78d387f4a707"), // lassi / milk drink
+  chai: U("1541167760496-1628856ab772"), // tea / coffee
+  sweets: U("1605647540924-852290f6b0d5"), // indian sweets
+  bev: U("1556679343-c7306c1976bc"), // beverages
+  generic: U("1546069901-ba9599a7e63c") // generic food (last resort)
+};
+
+const wiki: Record<string, string> = {
+  paneerButterMasala: W("a/ad/Shahi_panner.jpg"),
+  palakPaneer: W("b/b7/Palakpaneer_Rayagada_Odisha_0009.jpg"),
+  naan: W("4/4e/Annapurna_Naan.jpg"),
+  idli: W("1/11/Idli_Sambar.JPG"),
+  gulabJamun: W("c/c1/Gulab-jamun-wallpaper-1.jpg"),
+  pavBhaji: W("4/4a/Bambayya_Pav_bhaji.jpg"),
+  alooGobi: W("a/a9/Aloo_Ghobi.jpg"),
+  biryani: W("f/fe/Chicken_Biryani.jpg"),
+  dosa: W("8/8f/Rameshwaram_Cafe_Dosa.jpg"),
+  samosa: W(
+    "c/c4/Samosas%2C_snack_food_at_Wikipedia%27s_16th_Birthday_celebration_in_Chittagong_%2801%29.jpg"
+  ),
+  paniPuri: W("e/e9/Pani_Puri1.JPG"),
+  paneerTikka: W("f/f2/Paneer_tikka.jpg"),
+  friedRice: W(
+    "c/c3/Koh_Mak%2C_Thailand%2C_Fried_rice_with_seafood%2C_Thai_fried_rice.jpg"
+  ),
+  rasmalai: W("a/ae/Ras_Malai_2.JPG"),
+  bhelPuri: W("4/45/Behael_Puri_%286105489342%29.jpg"),
+  vadaPav: W("4/4e/Vada_Pav-Indian_street_food.JPG"),
+  poori: W("5/50/Fluffy_Poori_%28cropped%29.JPG"),
+  matarPaneer: W("9/92/Matar_paneer_dish.jpg"),
+  korma: W("a/a8/Chicken_Korma.JPG"),
+  dahiPuri: W("a/a0/Dahi_puri%2C_Doi_phuchka.jpg"),
+  lassi: W("7/7e/Banaras-ki-Lassi.jpg"),
+  sweetLassi: W("7/7e/Banaras-ki-Lassi.jpg"),
+  schezwanFriedRice: W("1/1e/Fried_rice_schezwan_style.jpg"),
+  navratanKorma: W("e/e2/Navratan_Korma_%28Mughal_Kitchen%29.JPG"),
+  chanaMasala: W("8/8e/Chana_masala.jpg"),
+  paratha: W("1/1e/Triangle_paratha_%28cropped%29.JPG"),
+  dal: W("f/f5/3_types_of_lentil.png")
+};
+
+// Exact dish overrides (most accurate available image).
+const EXACT: Record<string, string> = {
+  "paneer butter masala": wiki.paneerButterMasala,
+  "palak paneer": wiki.palakPaneer,
+  "chana masala": wiki.chanaMasala,
+  "mattar paneer": wiki.matarPaneer,
+  "aloo gobi masala": wiki.alooGobi,
+  "aloo mattar masala": unsplash.dal,
+  "veg korma": wiki.navratanKorma,
+  "dal fry": wiki.dal,
+  "pav bhaji": wiki.pavBhaji,
+  "cheese pav bhaji": wiki.pavBhaji,
+  "paneer biryani": unsplash.biryani,
+  "mushroom biryani": unsplash.biryani,
+  "veg biryani": unsplash.biryani,
+  "mixed briyani": unsplash.biryani,
+  "masala dosa": wiki.dosa,
+  "paneer dosa": wiki.dosa,
+  "mushroom dosa": wiki.dosa,
+  "cheese podi dosa": wiki.dosa,
+  "special dosa": wiki.dosa,
+  "fried onion dosa": wiki.dosa,
+  "ghee dosa": wiki.dosa,
+  "idli (2 pcs)": wiki.idli,
+  "fried idli (served with sambar)": wiki.idli,
+  "chilli idli (served with onion raitha)": wiki.idli,
+  "thattu idli": wiki.idli,
+  "samosa chaat": wiki.samosa,
+  "dahi samosa": wiki.samosa,
+  "plain samosa (2 pcs)": wiki.samosa,
+  "pani puri (5 pcs)": wiki.paniPuri,
+  "dahi puri": wiki.dahiPuri,
+  "sev puri": wiki.dahiPuri,
+  "masala puri": wiki.dahiPuri,
+  "bhel puri": wiki.bhelPuri,
+  "vada pav (1 pcs)": wiki.vadaPav,
+  "aloo poori": wiki.poori,
+  "chole poori": wiki.poori,
+  "poori with chenna (3 pcs)": wiki.poori,
+  "paneer tikka (5 pcs)": wiki.paneerTikka,
+  "hariyali panneer tikka (5 pcs)": wiki.paneerTikka,
+  "gulab jamun (2 pcs)": wiki.gulabJamun,
+  "kaala jamun (2 pcs)": wiki.gulabJamun,
+  "rasmalai": wiki.rasmalai,
+  "sweet malai lassi": wiki.sweetLassi,
+  "badam milk": wiki.sweetLassi,
+  "rose milk": wiki.sweetLassi,
+  "elaneer payasam": wiki.sweetLassi,
+  "naan": wiki.naan,
+  "butter naan (1 pcs) without sides": wiki.naan,
+  "plain naan (1 pcs) without sides": wiki.naan,
+  "garlic naan (1 pc) combo": wiki.naan,
+  "butter naan (1 pc) combo": wiki.naan,
+  "plain naan (1 pc) combo": wiki.naan,
+  "parotta & kurma (2 pcs)": wiki.paratha,
+  "parotta kurma (2 pcs)": wiki.paratha,
+  "gobi paratha (2 pcs)": wiki.paratha,
+  "paneer paratha (2 pcs)": wiki.paratha,
+  "aloo paratha (2 pcs)": wiki.paratha,
+  "methi paratha (2 pcs)": wiki.paratha,
+  "mushroom paratha (2 pcs)": wiki.paratha,
+  "mixed veg paratha (2 pcs)": wiki.paratha,
+  "plain paratha (2 pcs)": wiki.paratha,
+  "chilli cheese paratha (2 pcs)": wiki.paratha,
+  "cheese paratha (2 pcs)": wiki.paratha,
+  "aloo mint paratha (2 pcs)": wiki.paratha,
+  "aloo methi roti (2 pcs)": wiki.paratha
+};
+
+const getRealImage = (name: string, category: string): string => {
+  const n = name.toLowerCase();
+  const c = category.toLowerCase();
+
+  // 1. Exact dish override (most accurate).
+  if (EXACT[n]) return EXACT[n];
+
+  // 2. Keyword-specific matches.
+  if (n.includes("paneer butter") || n.includes("tikka masala") || n.includes("paneer gravy")) {
+    return unsplash.paneer;
+  }
+  if (n.includes("palak")) {
+    return unsplash.palak;
+  }
+  if (n.includes("paneer tikka")) {
+    return unsplash.tandoori;
+  }
+  if (n.includes("pav bhaji")) {
+    return unsplash.pavbhaji;
+  }
+  if (n.includes("fried rice")) {
+    return wiki.schezwanFriedRice;
+  }
+  if (n.includes("noodle") || n.includes("chowmein")) {
+    return unsplash.noodles;
+  }
+  if (
+    n.includes("manchurian") ||
+    n.includes("chilli paneer") ||
+    n.includes("gobi 65") ||
+    n.includes("paneer 65") ||
+    n.includes("mushroom 65") ||
+    n.includes("baby corn 65")
+  ) {
+    return unsplash.manchurian;
+  }
+  if (n.includes("biryani") || n.includes("pulao") || n.includes("pulav")) {
+    return unsplash.biryani;
+  }
+  if (n.includes("rice")) {
+    return unsplash.plainrice;
+  }
+  if (n.includes("dosa") || n.includes("uttapam")) {
+    return unsplash.dosa;
+  }
+  if (n.includes("idli") || (n.includes("vada") && !n.includes("pav"))) {
+    return unsplash.idli;
+  }
+  if (n.includes("kothu parotta") || n.includes("chilli parotta")) {
+    return unsplash.poori;
+  }
+  if (
+    n.includes("poori") ||
+    (n.includes("puri") && !n.includes("pani") && !n.includes("dahi") && !n.includes("sev"))
+  ) {
+    return unsplash.poori;
+  }
+  if (n.includes("naan")) {
+    return wiki.naan;
+  }
+  if (n.includes("paratha")) {
+    return wiki.paratha;
+  }
+  if (n.includes("kulcha") || n.includes("roti") || n.includes("chapati") || n.includes("phulka")) {
+    return unsplash.poori;
+  }
+  if (
+    n.includes("pani puri") ||
+    n.includes("golgappa") ||
+    n.includes("chaat") ||
+    n.includes("bhel") ||
+    n.includes("samosa") ||
+    n.includes("kachori") ||
+    n.includes("papdi") ||
+    n.includes("sundal") ||
+    n.includes("bonda") ||
+    n.includes("tikka chat") ||
+    n.includes("tikka") && c.includes("snack")
+  ) {
+    return unsplash.chaat;
+  }
+  if (n.includes("sandwich") || n.includes("toast")) {
+    return unsplash.sandwich;
+  }
+  if (n.includes("meals") || n.includes("thali")) {
+    return unsplash.thali;
+  }
+  if (n.includes("combo")) {
+    return unsplash.thali;
+  }
+  if (n.includes("juice") || n.includes("mojito") || n.includes("soda") || n.includes("lemon") || n.includes("fruit salad")) {
+    return unsplash.juice;
+  }
+  if (n.includes("lassi") || n.includes("milkshake") || n.includes("falooda") || n.includes("badam") || n.includes("payasam") || n.includes("milk")) {
+    return unsplash.lassi;
+  }
+  if (n.includes("coffee") || n.includes("tea") || n.includes("chai")) {
+    return unsplash.chai;
+  }
+  if (n.includes("jamun") || n.includes("rasmalai") || n.includes("sweet") || n.includes("halwa") || n.includes("basundhi") || n.includes("shahi")) {
+    return unsplash.sweets;
+  }
+  if (n.includes("dal")) {
+    return unsplash.dal;
+  }
+  if (n.includes("chana") || n.includes("chole")) {
+    return unsplash.dal;
+  }
+
+  // 3. Category fallbacks.
+  if (c.includes("grav")) {
+    return unsplash.dal;
+  }
+  if (c.includes("bread") || c.includes("roti") || c.includes("naan")) {
+    return unsplash.poori;
+  }
+  if (c.includes("chinese")) {
+    return unsplash.asian;
+  }
+  if (c.includes("rice")) {
+    return unsplash.plainrice;
+  }
+  if (c.includes("south")) {
+    return unsplash.idli;
+  }
+  if (c.includes("chaat") || c.includes("snack")) {
+    return unsplash.chaat;
+  }
+  if (c.includes("tandoori")) {
+    return unsplash.tandoori;
+  }
+  if (c.includes("beverage") || c.includes("juice")) {
+    return unsplash.bev;
+  }
+  if (c.includes("sweet") || c.includes("dessert")) {
+    return unsplash.sweets;
+  }
+  if (c.includes("meal")) {
+    return unsplash.thali;
+  }
+
+  // 4. Ultimate fallback.
+  return unsplash.generic;
+};
+
+export const MENU_ITEMS: MenuItem[] = RAW_MENU_ITEMS.map(item => {
+  return { ...item, image: getRealImage(item.name, item.category) };
+});
 
 export const CATEGORIES = [
   "All", 
