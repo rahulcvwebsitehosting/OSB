@@ -1901,7 +1901,28 @@ const wiki: Record<string, string> = {
   waterBottle: W("0/0a/Kangso_Mineral_Water_Bottling_Factory_-_05.jpg"),
   orangeJuice: W("9/9d/Fresh_orange_juice_II.jpg"),
   pomegranateJuice: W("8/84/Pomegranate_juice_in_glass_with_ice_cubes_-kolkata.jpg"),
-  watermelonJuice: W("9/9c/Watermelon_Juice_1.jpg")
+  watermelonJuice: W("9/9c/Watermelon_Juice_1.jpg"),
+  paraRoti2: W("f/fc/Aloo_Paratha_North_Indian.jpg"),
+  alooGobiParatha: W("e/ea/Aloo_gobi_paratha_-_Massachusetts.jpg"),
+  chapatiMaking: W(
+    "f/ff/Chapati_making_at_the_Chokhi_Dhani_Resort_Panchkula_08.jpg"
+  ),
+  hakkaNoodles: W("1/13/Hakka_Noodles.JPG"),
+  mushroomSandwich: W(
+    "a/ac/Mushroom_and_cheese_sandwich_-_Blend_%26_Brew_Brighton_2024-12-06.jpg"
+  ),
+  papdiChaat: W("0/05/Papdi-chaat.jpg"),
+  alooTikkiChaat: W("b/b3/Aloo_Tikki_%28Chaat%29.jpg"),
+  chilliGobi: W("4/42/Chilli_gobi_3.jpg"),
+  vegPulao: W("c/cf/Pulao.png"),
+  biryani2: W("9/98/Dindigul_Thalappakatti_Biryani_1.jpg"),
+  gheeDosa: W("9/99/Ghee_Dosa.jpg"),
+  masalaDosa: W("4/43/Masala_dosa_01.jpg"),
+  redApple: W("1/1b/Liat_Portal_for_Foodie_Disorder_-_Red_Apple_%28Whole_Fruit%29.jpg"),
+  pineappleMango: W("4/40/Fresh_pineapple_and_mango.jpg"),
+  lemonade: W("b/ba/Glass_sparkling_lemonade.jpg"),
+  carrotHalwa: W("9/96/Delicious_Gajar_Ka_Halwa.jpg"),
+  pedaSweet: W("9/91/Indian_Sweet_Dessert_Peda_in_a_white_bone_china_plate.jpg")
 };
 
 // Exact dish overrides (most accurate available image).
@@ -1958,8 +1979,8 @@ const EXACT: Record<string, string> = {
   "garlic naan (1 pc) combo": wiki.naan,
   "butter naan (1 pc) combo": wiki.naan,
   "plain naan (1 pc) combo": wiki.naan,
-  "parotta & kurma (2 pcs)": wiki.paratha,
-  "parotta kurma (2 pcs)": wiki.paratha,
+  "parotta & kurma (2 pcs)": wiki.kothuParotta,
+  "parotta kurma (2 pcs)": wiki.kothuParotta,
   "gobi paratha (2 pcs)": wiki.paratha,
   "paneer paratha (2 pcs)": wiki.paratha,
   "aloo paratha (2 pcs)": wiki.paratha,
@@ -1993,7 +2014,16 @@ const EXACT: Record<string, string> = {
   "dragon fruit": wiki.dragonFruit,
   "water bottle": wiki.waterBottle,
   "a b c (apple beetroot carrot)": wiki.pomegranateJuice,
-  "fruit salad": wiki.dragonFruit
+  "fruit salad": wiki.dragonFruit,
+  "apple juice": wiki.redApple,
+  "pineapple juice": wiki.pineappleMango,
+  "lemon juice": wiki.lemonade,
+  "athi juice": wiki.dragonFruit,
+  "basundhi": wiki.pedaSweet,
+  "shahi tukuda": wiki.pedaSweet,
+  "mixed veg rice": wiki.schezwanFriedRice,
+  "ghee dosa": wiki.gheeDosa,
+  "masala dosa": wiki.masalaDosa
 };
 
 const getRealImage = (name: string, category: string): string => {
@@ -2023,11 +2053,16 @@ const getRealImage = (name: string, category: string): string => {
     return wiki.schezwanFriedRice;
   }
   if (n.includes("noodle") || n.includes("chowmein")) {
-    return unsplash.noodles;
+    const pool = [unsplash.noodles, unsplash.noodles, wiki.hakkaNoodles];
+    let h = 0;
+    for (const ch of n) h = (h + ch.charCodeAt(0)) % pool.length;
+    return pool[h];
+  }
+  if (n.includes("chilli gobi") || n.includes("baby corn manchurian") || n.includes("chilli paneer")) {
+    return wiki.chilliGobi;
   }
   if (
     n.includes("manchurian") ||
-    n.includes("chilli paneer") ||
     n.includes("gobi 65") ||
     n.includes("paneer 65") ||
     n.includes("mushroom 65") ||
@@ -2035,11 +2070,24 @@ const getRealImage = (name: string, category: string): string => {
   ) {
     return unsplash.manchurian;
   }
-  if (n.includes("biryani") || n.includes("pulao") || n.includes("pulav")) {
-    return unsplash.biryani;
+  if (n.includes("pulao") || n.includes("pulav")) {
+    return wiki.vegPulao;
+  }
+  if (n.includes("biryani")) {
+    // Split between two biryani photos so they don't all look identical.
+    const pool = [unsplash.biryani, unsplash.biryani, unsplash.biryani, wiki.biryani2];
+    let h = 0;
+    for (const ch of n) h = (h + ch.charCodeAt(0)) % pool.length;
+    return pool[h];
   }
   if (n.includes("rice")) {
     return unsplash.plainrice;
+  }
+  if (n.includes("masala dosa")) {
+    return wiki.masalaDosa;
+  }
+  if (n.includes("ghee dosa")) {
+    return wiki.gheeDosa;
   }
   if (n.includes("dosa") || n.includes("uttapam")) {
     return unsplash.dosa;
@@ -2060,10 +2108,27 @@ const getRealImage = (name: string, category: string): string => {
     return wiki.naan;
   }
   if (n.includes("paratha")) {
-    return wiki.paratha;
+    // Rotate between paratha variants so they aren't all the same photo.
+    const pool = [wiki.paratha, wiki.paraRoti2, wiki.alooGobiParatha];
+    let h = 0;
+    for (const ch of n) h = (h + ch.charCodeAt(0)) % pool.length;
+    return pool[h];
   }
   if (n.includes("kulcha") || n.includes("roti") || n.includes("chapati") || n.includes("phulka")) {
-    return wiki.roti;
+    // Rotate between three roti/chapati variants.
+    const pool = [wiki.roti, wiki.chapatiMaking, wiki.paraRoti2];
+    let h = 0;
+    for (const ch of n) h = (h + ch.charCodeAt(0)) % pool.length;
+    return pool[h];
+  }
+  if (
+    n.includes("aloo tikki") || n.includes("aloo tikka") ||
+    n.includes("cheese alu tikka") || n.includes("alu tikka")
+  ) {
+    return wiki.alooTikkiChaat;
+  }
+  if (n.includes("papdi") || n.includes("kachori") || n.includes("dahi papdi") || n.includes("dahi kachodi")) {
+    return wiki.papdiChaat;
   }
   if (
     n.includes("pani puri") ||
@@ -2071,14 +2136,13 @@ const getRealImage = (name: string, category: string): string => {
     n.includes("chaat") ||
     n.includes("bhel") ||
     n.includes("samosa") ||
-    n.includes("kachori") ||
-    n.includes("papdi") ||
-    n.includes("sundal") ||
-    n.includes("bonda") ||
     n.includes("tikka chat") ||
     n.includes("tikka") && c.includes("snack")
   ) {
     return unsplash.chaat;
+  }
+  if (n.includes("mushroom") && (n.includes("sandwich") || n.includes("toast"))) {
+    return wiki.mushroomSandwich;
   }
   if (n.includes("sandwich") || n.includes("toast")) {
     return unsplash.sandwich;
