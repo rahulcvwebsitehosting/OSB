@@ -1887,7 +1887,21 @@ const wiki: Record<string, string> = {
     "a/ac/A_Bengali_curry_dish_made_from_Potato_and_fresh_matar_%28green_peas%29%2C_photographed_in_West_Bengal%2C_India%2C_November_19%2C_2023_%281%29.jpg"
   ),
   bhindi: W("7/71/Punjabi_bhindi_masala.jpg"),
-  gobiCurry: W("7/7a/Gobi_curry.jpg")
+  gobiCurry: W("7/7a/Gobi_curry.jpg"),
+  mojito: W("c/c0/MojitoReydelmojito.jpg"),
+  mintChutney: W("3/35/Green_Chutney.jpg"),
+  paan: W(
+    "3/34/Old_Bagan%2C_Myanmar%2C_Paan%2C_the_betel_leaf_and_areca_nut_preparation.jpg"
+  ),
+  boondiRaita: W("0/0b/Boondi_Raita.jpg"),
+  sundal: W("6/6e/Marina_beach_sundal.jpg"),
+  alooBonda: W("d/d3/Aloo_Bonda_1.jpg"),
+  kheer: W("0/02/Kheer_aka%2Crice_pudding.jpg"),
+  dragonFruit: W("7/71/Yellow_dragon_fruit_with_spoon_%2850847s%29.jpg"),
+  waterBottle: W("0/0a/Kangso_Mineral_Water_Bottling_Factory_-_05.jpg"),
+  orangeJuice: W("9/9d/Fresh_orange_juice_II.jpg"),
+  pomegranateJuice: W("8/84/Pomegranate_juice_in_glass_with_ice_cubes_-kolkata.jpg"),
+  watermelonJuice: W("9/9c/Watermelon_Juice_1.jpg")
 };
 
 // Exact dish overrides (most accurate available image).
@@ -1956,7 +1970,30 @@ const EXACT: Record<string, string> = {
   "chilli cheese paratha (2 pcs)": wiki.paratha,
   "cheese paratha (2 pcs)": wiki.paratha,
   "aloo mint paratha (2 pcs)": wiki.paratha,
-  "aloo methi roti (2 pcs)": wiki.paratha
+  "aloo methi roti (2 pcs)": wiki.paratha,
+  "elaneer payasam": wiki.kheer,
+  "sweet malai lassi": wiki.sweetLassi,
+  "badam milk": wiki.sweetLassi,
+  "rose milk": wiki.sweetLassi,
+  "raitha": wiki.boondiRaita,
+  "mint chutney": wiki.mintChutney,
+  "sada paan": wiki.paan,
+  "alu sabji": wiki.alooMatar,
+  "plain sundal": wiki.sundal,
+  "aloo bonda (2 pcs)": wiki.alooBonda,
+  "lemon mint mojito": wiki.mojito,
+  "lemon genger mojito": wiki.mojito,
+  "blue curacao mojito": wiki.mojito,
+  "strawberry mojito": wiki.mojito,
+  "mango mojito": wiki.mojito,
+  "pina colda mojito": wiki.mojito,
+  "pomegranate juice": wiki.pomegranateJuice,
+  "watermelon juice": wiki.watermelonJuice,
+  "orange juice": wiki.orangeJuice,
+  "dragon fruit": wiki.dragonFruit,
+  "water bottle": wiki.waterBottle,
+  "a b c (apple beetroot carrot)": wiki.pomegranateJuice,
+  "fruit salad": wiki.dragonFruit
 };
 
 const getRealImage = (name: string, category: string): string => {
@@ -1980,6 +2017,9 @@ const getRealImage = (name: string, category: string): string => {
     return unsplash.pavbhaji;
   }
   if (n.includes("fried rice")) {
+    return wiki.schezwanFriedRice;
+  }
+  if (n.includes("schezwan") && !n.includes("noodle")) {
     return wiki.schezwanFriedRice;
   }
   if (n.includes("noodle") || n.includes("chowmein")) {
